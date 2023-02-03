@@ -21,3 +21,4 @@ if __name__ == "__main__":
         print("Time elapsed: " + str(t2-t1) + " ns")
         print("            : " + str((t2 - t1) / 1000) + " μs")
         print("   Frequency: " + str(1/((t2-t1) / 1000000000)) + " Hz")
+        print("         RPM: " + str(((1/((t2 - t1) / 1000000000)) / 50) * 60) + " RPM")

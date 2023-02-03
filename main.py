@@ -41,13 +41,26 @@ def wait_for_input():
 while True:
     if state == TachometerState.SPLASH_SCREEN:
         print("Testing Splash Screen")
-        time.sleep(0.5)
+        time.sleep(2)
         state = TachometerState.MENU_OPTIONS
+
     elif state == TachometerState.MENU_OPTIONS:
         print("Testing Menu Options")
-        print(wait_for_input())
-        state = TachometerState.MEASURE_FREQUENCY
-    # elif state == TachometerState.MEASURE_FREQUENCY:
-        # print("Measuring Frequency")
+
+        choice = wait_for_input()
+        if choice == "1":
+            state = TachometerState.MEASURE_FREQUENCY
+        elif choice == "2":
+            state = TachometerState.INPUT_FREQUENCY
+
+    elif state == TachometerState.MEASURE_FREQUENCY:
+        if check_input() == "*":
+            state = TachometerState.INPUT_FREQUENCY
+        print("Measuring Frequency!")
+        time.sleep(2)
+
     elif state == TachometerState.INPUT_FREQUENCY:
+        if check_input() == "*":
+            state = TachometerState.MEASURE_FREQUENCY
         print("Exact Frequency")
+        time.sleep(2)
