@@ -1,0 +1,182 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid df154f32-6fac-4d32-8656-8de3dd62416a)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 29.21 40.64) (size 24.13 22.86) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 4260d294-cf0c-4029-9eae-8e46592b9c5a)
+    (property "Sheet name" "Strobing Circuit" (id 0) (at 29.21 39.9284 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "StrobingCircuit.kicad_sch" (id 1) (at 29.21 64.0846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 74.93 40.64) (size 24.13 22.86) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 6fb6840c-a7d1-4154-977e-7ade4ad2f5a2)
+    (property "Sheet name" "KeypadReader" (id 0) (at 74.93 39.9284 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "KeypadReader.kicad_sch" (id 1) (at 74.93 64.0846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 115.57 40.64) (size 24.13 22.86) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid e5c5a857-32e0-4c05-aad4-647fa1a8ce0f)
+    (property "Sheet name" "OpticalMeasurementDevice" (id 0) (at 115.57 39.9284 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "MeasurementDevice.kicad_sch" (id 1) (at 115.57 64.0846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a" (page "2"))
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2" (page "3"))
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f" (page "4"))
+  )
+
+  (symbol_instances
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/07af313c-3fd2-477d-af84-8f4e859f9b72"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/17fa436b-069c-40a5-871e-e544a8e194e3"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/3e11c745-950c-4701-bc47-3f36b8d73976"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/451cf574-5a31-4c13-93b0-be529dc3d139"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/4959b4a5-15da-452b-a7ce-d8740b20261a"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/5835fe2c-4c19-40cc-9768-cdeae1e76dfe"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/60fe7f69-4c3f-49ba-b072-003f2c858d08"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/77457ed3-b68c-43fe-8fca-90a3a81283a1"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/861f83c8-c2ab-46a5-a8eb-955990a7a06c"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/877c1fff-2d02-4864-9e5f-a82492e5a859"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/b82acac4-89f3-4be0-af13-3201ccffeb10"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/c3218270-d2d6-4a26-a0e9-9a8471081c41"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/c3dca348-494a-4fe3-963f-846b338109e7"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/c6685c2e-cafd-413b-924f-94bd0b728f2f"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/d6296581-878f-49f2-8c41-ee93c2ca5810"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/d9d97c03-31aa-4ef2-aea3-5e451617630f"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/f64b5360-4eb6-4680-a0c5-155515384c11"
+      (reference "1nF") (unit 1) (value "C2") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/624819a2-090e-4db8-86e3-503953fdc098"
+      (reference "C1") (unit 1) (value "1nF") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/73138b5b-c685-4561-b3b2-25e91fd33092"
+      (reference "D?") (unit 1) (value "LED") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/9a7366ed-2ed3-4cca-8999-ee3b7e466212"
+      (reference "D?") (unit 1) (value "IR LED") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/e95a44d8-5224-45d8-8745-cbf8a232352f"
+      (reference "D?") (unit 1) (value "DIODE") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/ee74b38d-d475-417a-8ad2-2ff727585601"
+      (reference "Q?") (unit 1) (value "Q_Photo_NPN") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/50fff05e-5e21-4fe7-8b05-ba278702d6aa"
+      (reference "R1") (unit 1) (value "2.7kΩ") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/8cb226cc-61b0-4ea7-a3b6-aac61ada4d7b"
+      (reference "R2") (unit 1) (value "1.3kΩ") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/af509987-39f4-47c6-9d36-8857a1b6ac3c"
+      (reference "R3") (unit 1) (value "9.1kΩ") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/d5e510c8-f6d5-42dd-9c77-9ded4b6f5ea3"
+      (reference "R4") (unit 1) (value "50Ω") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/09fe6c40-aa08-4e80-a369-1695d780e741"
+      (reference "R?") (unit 1) (value "2kΩ") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/425d6d0a-8447-4137-ab47-17c62e58c1b3"
+      (reference "R?") (unit 1) (value "680Ω") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/51ce6904-0c46-4b28-a776-0110e92d1d26"
+      (reference "R?") (unit 1) (value "22kΩ") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/69c6c6e6-8e4f-44ba-8e84-df67a13faab7"
+      (reference "R?") (unit 1) (value "100Ω") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/7a19d48b-9f46-41e0-bad4-d7c2f7373178"
+      (reference "R?") (unit 1) (value "300Ω") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/8a0ad11f-88d4-4de5-9754-a13bf78d9d07"
+      (reference "R?") (unit 1) (value "2.7kΩ") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/bb24ca79-82d0-49b5-8dec-2886cd3d22f3"
+      (reference "R?") (unit 1) (value "510Ω") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/c7818732-a5f5-4d3f-ae86-e503019d4731"
+      (reference "R?") (unit 1) (value "100Ω") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/d270339e-fd72-470e-8564-8e12f24d7bdf"
+      (reference "R?") (unit 1) (value "50Ω") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/dd5e308a-3cc7-4dd7-b950-1418aed3b9f3"
+      (reference "R?") (unit 1) (value "2kΩ") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/f257c2cf-02e3-441c-a650-6975407a5e7e"
+      (reference "R?") (unit 1) (value "1.3kΩ") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/f71b1536-0a5b-423c-9377-8f27ddb1eb57"
+      (reference "R?") (unit 1) (value "10kΩ") (footprint "")
+    )
+    (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/bba86e29-43b4-4a28-910e-682006a534e6"
+      (reference "U?") (unit 1) (value "TLC555IP") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/e2ab3cba-8b47-4b2c-8db8-ed61b53a5c2c"
+      (reference "U?") (unit 1) (value "Keypad") (footprint "")
+    )
+    (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/e9ec2540-a712-43ab-a798-8100a9c3700e"
+      (reference "U?") (unit 1) (value "TLC555IP") (footprint "")
+    )
+    (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/fd02838a-f98b-4369-a13a-2d980bfb8883"
+      (reference "U?") (unit 1) (value "PICAXE-20X2") (footprint "")
+    )
+  )
+)
