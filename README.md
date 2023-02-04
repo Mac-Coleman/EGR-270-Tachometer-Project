@@ -19,3 +19,6 @@ How that signal will be created will be determined later.
 
 # Optical Measurement Circuit
 ![The schematic of the optical measurement circuit](./SchematicSVGs/OpticalMeasurementDeviceCleaned.svg)
+
+# Frequency Divider Circuit
+![The schematic of the frequency divider](./SchematicSVGs/FrequencyDividerCleaned.svg)
