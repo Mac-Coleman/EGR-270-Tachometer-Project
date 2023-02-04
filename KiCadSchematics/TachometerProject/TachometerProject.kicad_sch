@@ -770,6 +770,9 @@
   )
 
   (symbol_instances
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/02253f05-47be-4627-baf1-9792031f5ee4"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
     (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/07af313c-3fd2-477d-af84-8f4e859f9b72"
       (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
     )
@@ -782,13 +785,25 @@
     (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/451cf574-5a31-4c13-93b0-be529dc3d139"
       (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
     )
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/452dcdb7-69cb-4d69-bf44-ccea6636e910"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/46391c84-ab96-487b-9e4a-b46372639882"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
     (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/4959b4a5-15da-452b-a7ce-d8740b20261a"
       (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/543b9587-a6ba-443e-a9f5-3f4a818629be"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
     (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/5835fe2c-4c19-40cc-9768-cdeae1e76dfe"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
     (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/60fe7f69-4c3f-49ba-b072-003f2c858d08"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/6f872dee-469a-4459-9025-97ea39c6e4ac"
       (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
     )
     (path "/721274c2-32c3-49ba-8797-f74e67c2d9ca"
@@ -803,6 +818,9 @@
     (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/77457ed3-b68c-43fe-8fca-90a3a81283a1"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/832df608-08b6-424c-a949-977f898b3dd6"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
+    )
     (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/861f83c8-c2ab-46a5-a8eb-955990a7a06c"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
@@ -811,6 +829,9 @@
     )
     (path "/6fb6840c-a7d1-4154-977e-7ade4ad2f5a2/b82acac4-89f3-4be0-af13-3201ccffeb10"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/bbb9df08-3aa9-4ee1-bad2-99a54d0cf17e"
+      (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
     )
     (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/c3218270-d2d6-4a26-a0e9-9a8471081c41"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
@@ -825,6 +846,9 @@
       (reference "#PWR?") (unit 1) (value "Earth") (footprint "")
     )
     (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/d9d97c03-31aa-4ef2-aea3-5e451617630f"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/a4462ecd-09fd-4d80-9332-25c5d1e7892f/d9ef97af-d601-457f-9a99-11c87a76791f"
       (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
     (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/f64b5360-4eb6-4680-a0c5-155515384c11"
