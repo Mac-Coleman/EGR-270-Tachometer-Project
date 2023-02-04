@@ -15,7 +15,7 @@ How that signal will be created will be determined later.
 
 
 # Strobing Circuit
-![The schematic of the strobing circuit](./Schematic SVGs/StrobingCircuitCleaned.svg)
+![The schematic of the strobing circuit](./SchematicSVGs/StrobingCircuitCleaned.svg)
 
 # Optical Measurement Circuit
-![The schematic of the optical measurement circuit](./Schematic SVGs/OpticalMeasurementDeviceCleaned.svg)
+![The schematic of the optical measurement circuit](./SchematicSVGs/OpticalMeasurementDeviceCleaned.svg)
