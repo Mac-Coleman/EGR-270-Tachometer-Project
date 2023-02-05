@@ -20,5 +20,11 @@ How that signal will be created will be determined later.
 # Optical Measurement Circuit
 ![The schematic of the optical measurement circuit](./SchematicSVGs/OpticalMeasurementDeviceCleaned.svg)
 
+# Keypad Reader circuit
+![The schematic of the keypad reading circuit](./SchematicSVGs/KeypadReaderCleaned.svg)
+
 # Frequency Divider Circuit
 ![The schematic of the frequency divider](./SchematicSVGs/FrequencyDividerCleaned.svg)
+
+# The whole thing
+![The schematic of the entire device](./SchematicSVGs/TachometerProjectCleaned.svg)
