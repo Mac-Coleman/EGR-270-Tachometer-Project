@@ -36,6 +36,7 @@ def wait_for_input():
     k = check_input()
 
     while k == None or k == last_char:
+        print(k, last_char)
         last_char = k
         k = check_input()
 
