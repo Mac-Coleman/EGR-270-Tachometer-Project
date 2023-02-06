@@ -1,7 +1,10 @@
 import time
 import RPi.GPIO as GPIO
 import smbus
+import signal
+import threading
 from enum import Enum
+import sys
 
 class TachometerState(Enum):
     SPLASH_SCREEN = 0
@@ -14,15 +17,27 @@ state = TachometerState.SPLASH_SCREEN
 bus = smbus.SMBus(1)
 keyboard_address = 0x30
 
+THREAD_READ_GLOBAL = 0
+lock = threading.Lock()
+
+def thread_read(adr, byte):
+    global THREAD_READ_GLOBAL
+    try:
+        lock.acquire()
+        THREAD_READ_GLOBAL = bus.read_byte_data(adr, byte)
+        lock.release()
+    except:
+        print("Oops.")
+
 def check_input():
     # Test whether any inputs are being held.
     # Returns character being held or None.
-    key = bus.read_byte_data(keyboard_address, 0)
     # Read the byte 0 (the key being pressed.)
 
+    THREAD_READ_GLOBAL = bus.read_byte_data(keyboard_address, 0)
     c = None
-    if key != 0:
-        c = chr(key)
+    if THREAD_READ_GLOBAL != 0:
+        c = chr(THREAD_READ_GLOBAL)
 
     return c
 
@@ -74,16 +89,20 @@ def calculate_rpm():
     return r
 
 
-time_diff = 0
+time_diff = sys.maxsize
 
 def photogate_callback(channel):
     global count, last_time, time_diff
+    lock.acquire()
     count += 1
     count %= 50
     if count == 0:
         flash()
     t = time.time_ns()
     time_diff = t - last_time # Calculate time difference in nanoseconds.
+    last_time = t
+    lock.release()
+
 
 # Initialize everything
 PHOTOGATE_GPIO = 22
@@ -97,10 +116,12 @@ GPIO.setup(PHOTOGATE_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(STROBE_TRIGGER, GPIO.OUT)
 GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
 
+print("REACHED")
 GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=photogate_callback)
+print("REACHED")
 
-signal.signal(signal.SIGINT, signal_handler)
-signal.pause()
+signal.signal(signal.SIGINT, interrupt_signal_handler)
+# signal.pause()
 
 while True:
     if state == TachometerState.SPLASH_SCREEN:
@@ -121,7 +142,7 @@ while True:
         if debounced_check() == "*":
             state = TachometerState.INPUT_FREQUENCY
 
-        print(str(calculate_rpm) + " RPM")
+        print(str(calculate_rpm()) + " RPM")
         time.sleep(1)
         print("Measuring Frequency!")
 
