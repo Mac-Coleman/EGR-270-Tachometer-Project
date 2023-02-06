@@ -27,6 +27,17 @@ def check_input():
 
 last_char = None
 
+def debounced_check():
+    global last_char
+
+    k = check_input()
+    while k == last_char:
+        last_char = k
+        k = check_input()
+
+    last_char = k
+    return k
+
 def wait_for_input():
     # Blocking wait for any inputs to be given. Will wait until a key is pressed.
     # Always returns a character, never None, after some delay.
@@ -36,6 +47,7 @@ def wait_for_input():
     k = check_input()
 
     while k == None or k == last_char:
+        print(k, last_char)
         last_char = k
         k = check_input()
 
@@ -63,8 +75,11 @@ while True:
         if check_input() == "*":
             state = TachometerState.INPUT_FREQUENCY
         print("Measuring Frequency!")
+        time.sleep(2)
 
     elif state == TachometerState.INPUT_FREQUENCY:
         if check_input() == "*":
             state = TachometerState.MEASURE_FREQUENCY
         print("Exact Frequency")
+        time.sleep(2)
+
