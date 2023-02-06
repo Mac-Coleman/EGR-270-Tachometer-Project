@@ -36,7 +36,6 @@ def wait_for_input():
     k = check_input()
 
     while k == None or k == last_char:
-        print(k, last_char)
         last_char = k
         k = check_input()
 
@@ -45,7 +44,7 @@ def wait_for_input():
     return k
 
 
-while False:
+while True:
     if state == TachometerState.SPLASH_SCREEN:
         print("Testing Splash Screen")
         time.sleep(2)
@@ -64,15 +63,8 @@ while False:
         if check_input() == "*":
             state = TachometerState.INPUT_FREQUENCY
         print("Measuring Frequency!")
-        time.sleep(2)
 
     elif state == TachometerState.INPUT_FREQUENCY:
         if check_input() == "*":
             state = TachometerState.MEASURE_FREQUENCY
         print("Exact Frequency")
-        time.sleep(2)
-
-
-while True: # TODO REMOVE
-
-    print(time.time(), wait_for_input())
