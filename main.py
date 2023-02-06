@@ -1,4 +1,5 @@
 import time
+import RPi.GPIO as GPIO
 import smbus
 from enum import Enum
 
@@ -55,6 +56,51 @@ def wait_for_input():
 
     return k
 
+def interrupt_signal_handler(signal, frame):
+    GPIO.cleanup()
+    sys.exit(0)
+
+def flash():
+    global STROBE_TRIGGER
+    GPIO.output(STROBE_TRIGGER, GPIO.LOW)
+    GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
+
+def calculate_rpm():
+    global time_diff # Time difference in nanoseconds.
+    t = time_diff * 1000000000 # time difference in seconds
+    t *= 50 # Period of rotation
+    f = 1/t # Angular frequency
+    r = f * 60 # Rotations per minute
+    return r
+
+
+time_diff = 0
+
+def photogate_callback(channel):
+    global count, last_time, time_diff
+    count += 1
+    count %= 50
+    if count == 0:
+        flash()
+    t = time.time_ns()
+    time_diff = t - last_time # Calculate time difference in nanoseconds.
+
+# Initialize everything
+PHOTOGATE_GPIO = 22
+STROBE_TRIGGER = 6
+count = 0
+last_time = time.time_ns()
+frequency = 0
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(PHOTOGATE_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(STROBE_TRIGGER, GPIO.OUT)
+GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
+
+GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=photogate_callback)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.pause()
 
 while True:
     if state == TachometerState.SPLASH_SCREEN:
@@ -74,6 +120,9 @@ while True:
     elif state == TachometerState.MEASURE_FREQUENCY:
         if debounced_check() == "*":
             state = TachometerState.INPUT_FREQUENCY
+
+        print(str(calculate_rpm) + " RPM")
+        time.sleep(1)
         print("Measuring Frequency!")
 
     elif state == TachometerState.INPUT_FREQUENCY:
