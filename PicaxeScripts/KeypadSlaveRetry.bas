@@ -19,6 +19,12 @@ main:
 	loop until adc_val > 10
 
 	gosub ReadKeypad
+
+	do
+		readadc 1, adc_val
+		put 0, char
+		put 1, adc_val
+	loop until adc_val < 10
 	goto main
 
 ReadKeypad:
