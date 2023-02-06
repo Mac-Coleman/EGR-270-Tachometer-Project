@@ -40,6 +40,8 @@ def wait_for_input():
         last_char = k
         k = check_input()
 
+    print(k, last_char)
+
     return k
 
 
