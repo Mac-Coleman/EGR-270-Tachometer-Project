@@ -27,6 +27,17 @@ def check_input():
 
 last_char = None
 
+def debounced_check():
+    global last_char
+
+    k = check_input()
+    while k == last_char:
+        last_char = k
+        k = check_input()
+
+    last_char = k
+    return k
+
 def wait_for_input():
     # Blocking wait for any inputs to be given. Will wait until a key is pressed.
     # Always returns a character, never None, after some delay.
@@ -45,7 +56,7 @@ def wait_for_input():
     return k
 
 
-while False:
+while True:
     if state == TachometerState.SPLASH_SCREEN:
         print("Testing Splash Screen")
         time.sleep(2)
@@ -72,7 +83,3 @@ while False:
         print("Exact Frequency")
         time.sleep(2)
 
-
-while True: # TODO REMOVE
-
-    print(time.time(), wait_for_input())
