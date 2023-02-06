@@ -25,20 +25,24 @@ def check_input():
 
     return c
 
+last_char = None
+
 def wait_for_input():
     # Blocking wait for any inputs to be given. Will wait until a key is pressed.
     # Always returns a character, never None, after some delay.
 
+    global last_char
+
     k = check_input()
 
-    while k == None:
-        time.sleep(0.025)
+    while k == None or k == last_char:
+        last_char = k
         k = check_input()
 
     return k
 
 
-while True:
+while False:
     if state == TachometerState.SPLASH_SCREEN:
         print("Testing Splash Screen")
         time.sleep(2)
@@ -64,3 +68,8 @@ while True:
             state = TachometerState.MEASURE_FREQUENCY
         print("Exact Frequency")
         time.sleep(2)
+
+
+while True: # TODO REMOVE
+
+    print(time.time(), wait_for_input())
