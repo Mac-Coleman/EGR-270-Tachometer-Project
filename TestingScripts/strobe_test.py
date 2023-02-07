@@ -27,6 +27,7 @@ def spoke_callback(channel):
     p = (t - last_time) / 1000000000
     frequency = 1 / (p * 50)
     print(str(frequency) + " Hz")
+    print(t - last_time)
     last_time = t
 
 

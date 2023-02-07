@@ -3,6 +3,7 @@ import smbus
 import signal
 import sys
 import time
+import threading
 from enum import Enum
 
 class TachometerState(Enum):
@@ -18,24 +19,38 @@ def event_callback(channel):
     
     if count == 0:
         flash()
-        print("Flash!")
     time_difference = t - lt
     lt = t
 
 def flash():
-    print("F")
+    lock.acquire()
     GPIO.output(STROBE_TRIGGER, GPIO.LOW)
-    print("L")
+    lock.release()
     GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
-    print("H")
 
 def read():
     print(bus.read_byte_data(0x30, 0))
 
+def locking_read_i2c_THREAD(address, byte):
+    global I2C_READ_BYTE_GLOBAL
+    lock.acquire()
+    I2C_READ_BYTE_GLOBAL = bus.read_byte_data(address, byte)
+    lock.release()
+
+def read_i2c(address, byte):
+    t = threading.Thread(target=locking_read_i2c_THREAD, args=(address, byte), daemon=True)
+    t.start()
+    t.join()
+
+    return I2C_READ_BYTE_GLOBAL
+
 def check_input():
-    print("READ")
-    key = bus.read_byte_data(keyboard_address, 0)
-    print("FINISHED READ")
+    # key = read_i2c(keyboard_address, 0)
+    t = threading.Thread(target=locking_read_i2c_THREAD, args=(keyboard_address, 0), daemon=True)
+    t.start()
+    t.join()
+
+    key = I2C_READ_BYTE_GLOBAL
 
     c = None
     if key != 0:
@@ -70,12 +85,16 @@ def signal_handler(signal, frame):
     GPIO.cleanup()
     sys.exit(0)
 
+I2C_READ_BYTE_GLOBAL = 0
+last_char = None
 
 state = TachometerState.SPLASH_SCREEN
 PHOTOGATE_GPIO = 22
 STROBE_TRIGGER = 6
 keyboard_address = 0x30
 bus = smbus.SMBus(1)
+
+lock = threading.Lock() # The talking stick.
 
 lt = time.time_ns()
 count = 0
@@ -99,8 +118,8 @@ try:
         elif state == TachometerState.MENU_OPTIONS:
             print("Menu options")
 
-            k = wait_for_input()
-
+            k = debounced_check()
+            print(I2C_READ_BYTE_GLOBAL)
             if k == '1':
                 state = TachometerState.MEASURE_FREQUENCY
             elif k == '2':
@@ -112,6 +131,8 @@ try:
         elif state == TachometerState.INPUT_FREQUENCY:
             print("Input frequency")
             time.sleep(1)
+
+        time.sleep(0.2)
 except Exception as e:
     print(str(e))
     GPIO.cleanup()
