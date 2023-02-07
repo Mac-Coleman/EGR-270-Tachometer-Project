@@ -60,3 +60,6 @@ def input_prompt():
             return
 
     return float(output_string)
+
+while True:
+    print("The float: " + input_prompt())
