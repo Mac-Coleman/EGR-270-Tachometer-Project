@@ -12,12 +12,14 @@ time_difference = sys.maxsize
 
 def event_callback(channel):
     global lt, count, time_difference
-    count += 1
-    count %= 50
+    count = (count + 1) % 50
+    t = time.time_ns()
+    
     if count == 0:
         print("Flash!")
-    t = time.time_ns()
+    time_difference = t - lt
     lt = t
+
 
 def read():
     print(bus.read_byte_data(0x30, 0))
