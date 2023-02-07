@@ -45,6 +45,18 @@ def debounced_check():
     last_char = k
     return k
 
+def wait_for_input():
+    global last_char
+    k = check_input()
+
+    while k == None or k == last_char:
+        last_char = k
+        k = check_input()
+
+    last_char = k
+
+    return k
+
 def signal_handler(signal, frame):
     GPIO.cleanup()
     sys.exit(0)
