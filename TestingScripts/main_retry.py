@@ -69,6 +69,7 @@ while True:
     if state == TachometerState.SPLASH_SCREEN:
         print("Loading")
         time.sleep(1)
+        state = TachometerState.MENU_OPTIONS
     elif state == TachometerState.MENU_OPTIONS:
         print("Menu options")
 
