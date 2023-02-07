@@ -16,17 +16,21 @@ def event_callback(channel):
     global lt, count, time_difference
     count = (count + 1) % 50
     t = time.time_ns()
-    
+
     if count == 0:
         flash()
     time_difference = t - lt
     lt = t
 
 def flash():
+    print("FLASH: Asking for lock. " + str(lock))
     lock.acquire()
+    print("FLASH: Received lock. " + str(lock))
     GPIO.output(STROBE_TRIGGER, GPIO.LOW)
     GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
+    print("FLASH: Releasing lock. " + str(lock))
     lock.release()
+    print("FLASH: Released lock. " + str(lock))
 
 def read():
     print(bus.read_byte_data(0x30, 0))
@@ -34,9 +38,13 @@ def read():
 def locking_read_i2c_THREAD(address, byte):
     global I2C_READ_BYTE_GLOBAL
 
+    print("READ: Asking for lock. " + str(lock))
     lock.acquire()
+    print("READ: Received lock. " + str(lock))
     I2C_READ_BYTE_GLOBAL = bus.read_byte_data(address, byte)
+    print("READ: Releasing lock. " + str(lock))
     lock.release()
+    print("READ: Released lock. " + str(lock))
 
 def read_i2c(address, byte):
     t = threading.Thread(target=locking_read_i2c_THREAD, args=(address, byte), daemon=True)
@@ -90,8 +98,8 @@ I2C_READ_BYTE_GLOBAL = 0
 last_char = None
 
 state = TachometerState.SPLASH_SCREEN
-PHOTOGATE_GPIO = 22
-STROBE_TRIGGER = 6
+PHOTOGATE_GPIO = 27
+STROBE_TRIGGER = 22
 keyboard_address = 0x30
 bus = smbus.SMBus(1)
 
@@ -109,32 +117,10 @@ GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=event_callback)
 
 signal.signal(signal.SIGINT, signal_handler)
 
-try:
+def main():
     while True:
+    	print("Check: " + str(check_input()))
 
-        if state == TachometerState.SPLASH_SCREEN:
-            print("Loading")
-            time.sleep(1)
-            state = TachometerState.MENU_OPTIONS
-        elif state == TachometerState.MENU_OPTIONS:
-            print("Menu options")
-
-            k = debounced_check()
-            print(I2C_READ_BYTE_GLOBAL)
-            if k == '1':
-                state = TachometerState.MEASURE_FREQUENCY
-            elif k == '2':
-                state = TachometerState.INPUT_FREQUENCY
-
-        elif state == TachometerState.MEASURE_FREQUENCY:
-            print("Measure frequency")
-            time.sleep(1)
-        elif state == TachometerState.INPUT_FREQUENCY:
-            print("Input frequency")
-            time.sleep(1)
-
-        time.sleep(0.2)
-except Exception as e:
-    print(str(e))
-    GPIO.cleanup()
-    sys.exit(0)
+main = threading.Thread(target=main, daemon=True)
+main.start()
+main.join()
