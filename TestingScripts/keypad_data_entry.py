@@ -57,9 +57,14 @@ def input_prompt():
         print(output_string)
 
         if cancel >= 2:
-            return
+            return None
 
     return float(output_string)
 
 while True:
-    print("The float: " + input_prompt())
+    f = input_prompt()
+
+    if f == None:
+        print("Entry canceled.")
+    else:
+        print("The float: " + str(f))
