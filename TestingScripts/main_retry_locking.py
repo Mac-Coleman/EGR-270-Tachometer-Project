@@ -25,9 +25,8 @@ def event_callback(channel):
 def flash():
     lock.acquire()
     GPIO.output(STROBE_TRIGGER, GPIO.LOW)
-    # lock.release()
-    GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
     lock.release()
+    GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
 
 def read():
     print(bus.read_byte_data(0x30, 0))
