@@ -25,16 +25,21 @@ def event_callback(channel):
 def flash():
     lock.acquire()
     GPIO.output(STROBE_TRIGGER, GPIO.LOW)
-    lock.release()
     GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
+    lock.release()
 
 def read():
     print(bus.read_byte_data(0x30, 0))
 
 def locking_read_i2c_THREAD(address, byte):
     global I2C_READ_BYTE_GLOBAL
+
     lock.acquire()
-    I2C_READ_BYTE_GLOBAL = bus.read_byte_data(address, byte)
+    try:
+        I2C_READ_BYTE_GLOBAL = bus.read_byte_data(address, byte)
+    except(OSError):
+        print("Cannot read on I2C")
+        I2C_READ_BYTE_GLOBAL = 0
     lock.release()
 
 def read_i2c(address, byte):
