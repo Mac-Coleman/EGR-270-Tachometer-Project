@@ -2,6 +2,13 @@
 # Writing I/O will be done exclusively over I2C.
 # No GPIO writes at all. Requires one GPIO input for detecting pulses, but that's it.
 
+from enum import Enum
+import time
+import smbus
+import RPi.GPIO
+import signal
+import sys
+
 class TachometerState(Enum):
     SPLASH_SCREEN = 0
     MENU_OPTIONS = 1
@@ -75,7 +82,7 @@ def photogate_callback(channel):
     last_time = t
 
 # Initialize everything
-PHOTOGATE_GPIO = 22
+PHOTOGATE_GPIO = 27
 count = 0
 last_time = time.time_ns()
 frequency = 0
@@ -83,6 +90,28 @@ frequency = 0
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PHOTOGATE_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=photogate_callback)
 
 signal.signal(signal.SIGINT, interrupt_signal_handler)
+
+state = TachometerState.SPLASH_SCREEN
+
+while True:
+    if state == TachometerState.SPLASH_SCREEN:
+        print("Welcome!")
+        time.sleep(2)
+        state = TachometerState.MENU_OPTIONS
+    elif state == TachometerState.MENU_OPTIONS:
+        print("Menu: 1) Measure 2) Input")
+
+        i = wait_for_input()
+
+        if i == '1':
+            state = TachometerState.MEASURE_FREQUENCY
+            print("Measure Frequency")
+            GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=photogate_callback)
+        elif i == '2':
+            state = TachometerState.INPUT_FREQUENCY
+            print("Input Frequency")
+    elif state == TachometerState.MEASURE_FREQUENCY:
+        print("\r" + str(calculate_rpm()) + "RPM                  ", end='')
+        time.sleep(1)
