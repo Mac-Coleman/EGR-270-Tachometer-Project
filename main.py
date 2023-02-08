@@ -5,7 +5,7 @@
 from enum import Enum
 import time
 import smbus
-import RPi.GPIO
+import RPi.GPIO as GPIO
 import signal
 import sys
 
@@ -24,7 +24,7 @@ def check_input():
     # Returns character being held or None.
     # Read the byte 0 (the key being pressed.)
 
-    key = read(keyboard_address, 0)
+    key = read(KEYBOARD_ADDRESS, 0)
     c = None
     if key != 0:
         c = chr(key)
@@ -67,7 +67,7 @@ def interrupt_signal_handler(signal, frame):
     
 def calculate_rpm():
     global time_diff # Time difference in nanoseconds.
-    t = time_diff * 1000000000 # time difference in seconds
+    t = time_diff / 1000000000 # time difference in seconds
     t *= 50 # Period of rotation
     f = 1/t # Angular frequency
     r = f * 60 # Rotations per minute
@@ -82,6 +82,8 @@ def photogate_callback(channel):
     last_time = t
 
 # Initialize everything
+KEYBOARD_ADDRESS = 0x30
+bus = smbus.SMBus(1)
 PHOTOGATE_GPIO = 27
 count = 0
 last_time = time.time_ns()
@@ -90,6 +92,7 @@ frequency = 0
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PHOTOGATE_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
+GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=photogate_callback)
 
 signal.signal(signal.SIGINT, interrupt_signal_handler)
 
@@ -108,10 +111,16 @@ while True:
         if i == '1':
             state = TachometerState.MEASURE_FREQUENCY
             print("Measure Frequency")
-            GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=photogate_callback)
         elif i == '2':
             state = TachometerState.INPUT_FREQUENCY
             print("Input Frequency")
     elif state == TachometerState.MEASURE_FREQUENCY:
         print("\r" + str(calculate_rpm()) + "RPM                  ", end='')
         time.sleep(1)
+
+        k = debounced_check()
+        if k == '*':
+            state = TachometerState.INPUT_FREQUENCY
+    else:
+        GPIO.cleanup()
+        sys.exit(0)
