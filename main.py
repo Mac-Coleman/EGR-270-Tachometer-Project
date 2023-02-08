@@ -1,10 +1,6 @@
-import time
-import RPi.GPIO as GPIO
-import smbus
-import signal
-import threading
-from enum import Enum
-import sys
+# Trying it again, from the top this time.
+# Writing I/O will be done exclusively over I2C.
+# No GPIO writes at all. Requires one GPIO input for detecting pulses, but that's it.
 
 class TachometerState(Enum):
     SPLASH_SCREEN = 0
@@ -12,32 +8,19 @@ class TachometerState(Enum):
     MEASURE_FREQUENCY = 2
     INPUT_FREQUENCY = 3
 
-state = TachometerState.SPLASH_SCREEN
 
-bus = smbus.SMBus(1)
-keyboard_address = 0x30
-
-THREAD_READ_GLOBAL = 0
-lock = threading.Lock()
-
-def thread_read(adr, byte):
-    global THREAD_READ_GLOBAL
-    try:
-        lock.acquire()
-        THREAD_READ_GLOBAL = bus.read_byte_data(adr, byte)
-        lock.release()
-    except:
-        print("Oops.")
+def read(adr, byte):
+    return bus.read_byte_data(adr, byte)
 
 def check_input():
     # Test whether any inputs are being held.
     # Returns character being held or None.
     # Read the byte 0 (the key being pressed.)
 
-    THREAD_READ_GLOBAL = bus.read_byte_data(keyboard_address, 0)
+    key = read(keyboard_address, 0)
     c = None
-    if THREAD_READ_GLOBAL != 0:
-        c = chr(THREAD_READ_GLOBAL)
+    if key != 0:
+        c = chr(key)
 
     return c
 
@@ -74,12 +57,7 @@ def wait_for_input():
 def interrupt_signal_handler(signal, frame):
     GPIO.cleanup()
     sys.exit(0)
-
-def flash():
-    global STROBE_TRIGGER
-    GPIO.output(STROBE_TRIGGER, GPIO.LOW)
-    GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
-
+    
 def calculate_rpm():
     global time_diff # Time difference in nanoseconds.
     t = time_diff * 1000000000 # time difference in seconds
@@ -88,66 +66,23 @@ def calculate_rpm():
     r = f * 60 # Rotations per minute
     return r
 
-
 time_diff = sys.maxsize
 
 def photogate_callback(channel):
-    global count, last_time, time_diff
-    lock.acquire()
-    count += 1
-    count %= 50
-    if count == 0:
-        flash()
+    global last_time, time_diff
     t = time.time_ns()
     time_diff = t - last_time # Calculate time difference in nanoseconds.
     last_time = t
-    lock.release()
-
 
 # Initialize everything
 PHOTOGATE_GPIO = 22
-STROBE_TRIGGER = 6
 count = 0
 last_time = time.time_ns()
 frequency = 0
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PHOTOGATE_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(STROBE_TRIGGER, GPIO.OUT)
-GPIO.output(STROBE_TRIGGER, GPIO.HIGH)
 
-print("REACHED")
 GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=photogate_callback)
-print("REACHED")
 
 signal.signal(signal.SIGINT, interrupt_signal_handler)
-# signal.pause()
-
-while True:
-    if state == TachometerState.SPLASH_SCREEN:
-        print("Testing Splash Screen")
-        time.sleep(2)
-        state = TachometerState.MENU_OPTIONS
-
-    elif state == TachometerState.MENU_OPTIONS:
-        print("Testing Menu Options")
-
-        choice = wait_for_input()
-        if choice == "1":
-            state = TachometerState.MEASURE_FREQUENCY
-        elif choice == "2":
-            state = TachometerState.INPUT_FREQUENCY
-
-    elif state == TachometerState.MEASURE_FREQUENCY:
-        if debounced_check() == "*":
-            state = TachometerState.INPUT_FREQUENCY
-
-        print(str(calculate_rpm()) + " RPM")
-        time.sleep(1)
-        print("Measuring Frequency!")
-
-    elif state == TachometerState.INPUT_FREQUENCY:
-        if debounced_check() == "*":
-            state = TachometerState.MEASURE_FREQUENCY
-        print("Exact Frequency")
-
