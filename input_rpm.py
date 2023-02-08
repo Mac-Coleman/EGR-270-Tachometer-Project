@@ -1,8 +1,8 @@
-import smbus
+import smbus2
 import math
 import RPi.GPIO as GPIO
 
-bus = smbus.SMBus(1)
+bus = smbus2.SMBus(1)
 keyboard_address = 0x30
 switch_address = 0x20
 pwm_output = 26

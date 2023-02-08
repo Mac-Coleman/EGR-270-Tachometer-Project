@@ -1,11 +1,11 @@
 import RPi.GPIO as GPIO
-import smbus
+from smbus2 import SMBus
 import signal
 import sys
 import time
 
-PHOTOGATE_GPIO = 22
-bus = smbus.SMBus(1)
+PHOTOGATE_GPIO = 17
+bus = SMBus(1)
 lt = time.time_ns()
 count = 0
 
@@ -30,7 +30,7 @@ def signal_handler(signal, frame):
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PHOTOGATE_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-# GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=event_callback)
+GPIO.add_event_detect(PHOTOGATE_GPIO, GPIO.FALLING, callback=event_callback)
 
 signal.signal(signal.SIGINT, signal_handler)
 
