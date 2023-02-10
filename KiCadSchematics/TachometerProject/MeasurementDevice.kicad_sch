@@ -680,7 +680,7 @@
     (property "Reference" "R1" (id 0) (at 91.44 59.6899 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "50Ω" (id 1) (at 91.44 62.2299 0)
+    (property "Value" "51Ω" (id 1) (at 91.44 62.2299 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 89.916 61.214 90)

@@ -1085,7 +1085,7 @@
       (reference "R1") (unit 1) (value "2.7kΩ") (footprint "")
     )
     (path "/e5c5a857-32e0-4c05-aad4-647fa1a8ce0f/d270339e-fd72-470e-8564-8e12f24d7bdf"
-      (reference "R1") (unit 1) (value "50Ω") (footprint "")
+      (reference "R1") (unit 1) (value "51Ω") (footprint "")
     )
     (path "/4260d294-cf0c-4029-9eae-8e46592b9c5a/8cb226cc-61b0-4ea7-a3b6-aac61ada4d7b"
       (reference "R2") (unit 1) (value "1.3kΩ") (footprint "")
